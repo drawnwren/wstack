@@ -12,6 +12,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 EXPECTED_FILES = {
+    ".cursor-plugin/marketplace.json",
     ".cursor-plugin/plugin.json",
     ".gitignore",
     "LICENSE",
@@ -100,8 +101,8 @@ def main() -> None:
         fail(f"unexpected files: {sorted(extra)}")
     if missing:
         fail(f"missing files: {sorted(missing)}")
-    if len(rels) != 28:
-        fail(f"expected 28 files, found {len(rels)}")
+    if len(rels) != 29:
+        fail(f"expected 29 files, found {len(rels)}")
 
     if (ROOT / "agents").exists():
         fail("agents/ directory must not exist")
@@ -118,6 +119,19 @@ def main() -> None:
         fail("plugin.json must not have an author field")
     if "agents" in manifest:
         fail("plugin.json must not declare agents")
+
+    marketplace_path = ROOT / ".cursor-plugin" / "marketplace.json"
+    marketplace = json.loads(marketplace_path.read_text())
+    if marketplace.get("name") != "wstack":
+        fail("marketplace.json name must be wstack")
+    plugins = marketplace.get("plugins")
+    if not isinstance(plugins, list) or len(plugins) != 1:
+        fail("marketplace.json must list exactly one plugin")
+    entry = plugins[0]
+    if entry.get("name") != "wstack":
+        fail("marketplace plugin name must be wstack")
+    if entry.get("source") != ".":
+        fail("marketplace plugin source must be . for the repo-root plugin")
 
     license_text = (ROOT / "LICENSE").read_text()
     if "MIT License" not in license_text:
@@ -245,7 +259,7 @@ def main() -> None:
         for match in EMAIL_RE.findall(text):
             fail(f"{rel} contains email {match!r}")
 
-    print("ok: 28 files, wstack plugin checks passed")
+    print("ok: 29 files, wstack plugin checks passed")
 
 
 if __name__ == "__main__":
