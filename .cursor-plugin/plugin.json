@@ -1,0 +1,13 @@
+{
+	"name": "wstack",
+	"displayName": "wstack",
+	"version": "0.1.0",
+	"description": "Understand first, then change. /setup-wstack picks models. /wstack is the sticky mode. how, why, teach, and recall ship now. The rest of the tree is still unwritten.",
+	"homepage": "https://github.com/drawnwren/wstack",
+	"repository": "https://github.com/drawnwren/wstack",
+	"license": "MIT",
+	"keywords": ["wstack", "workflow", "how", "why"],
+	"category": "developer-tools",
+	"tags": ["workflow", "review", "planning"],
+	"skills": "./skills/"
+}
