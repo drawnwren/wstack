@@ -2,11 +2,15 @@
 
 Understand first, then change.
 
-Install:
+Install from GitHub. Cursor indexes this repo as a marketplace via `.cursor-plugin/marketplace.json`. A repo with only `.cursor-plugin/plugin.json` is a single plugin, not a marketplace, so `/add-plugin` and **Import from Repo** both miss it.
+
+Agent chat:
 
 ```text
-/add-plugin https://github.com/drawnwren/wstack
+/add-plugin wstack@https://github.com/drawnwren/wstack
 ```
+
+Or paste `https://github.com/drawnwren/wstack` into Customize -> Plugins -> add from GitHub / Dashboard -> Plugins -> Import from Repo.
 
 Local checkout for development: `~/.cursor/plugins/local/wstack`. The plugin root is this git root.
 

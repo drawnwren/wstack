@@ -1,0 +1,16 @@
+{
+	"name": "wstack",
+	"owner": {
+		"name": "wstack"
+	},
+	"metadata": {
+		"description": "Understand first, then change. Cursor plugin marketplace for wstack."
+	},
+	"plugins": [
+		{
+			"name": "wstack",
+			"source": ".",
+			"description": "Understand first, then change. /setup-wstack picks models. /wstack is the sticky mode. how, why, teach, and recall ship now."
+		}
+	]
+}
