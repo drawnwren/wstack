@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import json
 import re
+import subprocess
 import sys
 from pathlib import Path
 
@@ -75,14 +76,19 @@ def fail(msg: str) -> None:
 
 
 def tracked_files() -> list[Path]:
+    """Return git-tracked files only. Gitignored extras must not fail the tree check."""
+    result = subprocess.run(
+        ["git", "-C", str(ROOT), "ls-files", "-z"],
+        check=True,
+        capture_output=True,
+    )
     files = []
-    for path in ROOT.rglob("*"):
-        if not path.is_file():
+    for raw in result.stdout.split(b"\0"):
+        if not raw:
             continue
-        rel = path.relative_to(ROOT).as_posix()
-        if rel.startswith(".git/"):
-            continue
-        files.append(path)
+        path = ROOT / raw.decode()
+        if path.is_file():
+            files.append(path)
     return files
 
 
